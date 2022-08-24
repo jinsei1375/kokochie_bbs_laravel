@@ -13,14 +13,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('top');
-});
+Route::get('/', 'PostController@index');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+// Route::get('/home', 'HomeController@index')->name('home');
+
+// Route::get('/posts', 'PostController@index');
+// Route::get('/posts/create','PostController@create');
+// // Route::get('/posts/{id}', 'PostController@show');
+// Route::post('/posts', 'PostController@store');
+// Route::get('/posts/{id}', 'PostController@edit');
+// Route::post('/posts/{id}', 'PostController@update');
+// Route::delete('/posts/{id}','PostController@destroy');
+
+Route::resource('/posts', 'PostController', ['except' => 'show']);
+Route::resource('/user/posts', 'UserPostController', ['except' => 'show']);
