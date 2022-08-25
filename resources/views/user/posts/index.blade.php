@@ -18,10 +18,11 @@
                             <li>
                               @if($post->user_id == Auth::id())
                               <div class="d-flex">
-                                  <a href="{{ url('user/posts/'.$post->id) }}" class="btn btn-success">編集</a>
-                                  <form action="/user/posts/delete/{{$post->id}}" method="POST">
+                                  <a href="{{ route('user.posts.edit', $post->id) }}" class="btn btn-success">編集</a>
+                                  <form action="{{ route('user.posts.destroy', $post->id) }}" method="POST">
                                       {{ csrf_field() }}
-                                      <input type="submit" value="削除" class="btn btn-danger post_del_btn">
+                                      @method('DELETE')
+                                      <input type="submit" value="削除" class="btn btn-danger post_del_btn" onclick="return Check()">
                                   </form>
                                 @endif
                               </div>

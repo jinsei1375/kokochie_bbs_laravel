@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
         <div class="col-10 col-md-6 offset-1 offset-md-3">
-            <form action="{{ route('posts.update', ['id' => $post->id]) }}" method="POST">
+            <form action="{{ route('user.posts.update', $post->id) }}" method="POST">
                 {{ csrf_field() }}
                 @method('PUT')
                 <div class="form-group">

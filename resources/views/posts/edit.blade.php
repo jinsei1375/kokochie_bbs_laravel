@@ -5,9 +5,8 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
         <div class="col-10 col-md-6 offset-1 offset-md-3">
-            <form action="{{ route('posts.update', ['id' => $post->id]) }}" method="POST">
+            <form action="{{ url('posts/'.$post->id) }}" method="POST">
                 {{ csrf_field() }}
-                @method('PUT')
                 <div class="form-group">
                     <label for="exampleFormControlTextarea1">編集</label>
                     <textarea class="form-control" name="content" id="exampleFormControlTextarea1" rows="3">{{ $post->content }}</textarea>

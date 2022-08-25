@@ -8,7 +8,6 @@
              <a href="/posts/create">新規投稿</a>
               <table class="table">
                   <tbody>
-                      
                       @foreach ($posts as $post)
                       <tr class="border">
                         <ul>
@@ -17,14 +16,15 @@
                             <li>{{ $post->content }}</li>
                             <li>
                               @if($post->user_id == Auth::id())
-                              <div class="d-flex">
-                                  <a href="{{ url('posts/'.$post->id) }}" class="btn btn-success">編集</a>
-                                  <form action="/posts/delete/{{$post->id}}" method="POST">
+                                <div class="d-flex">
+                                  <a href="{{ url('posts/'.$post->id.'/edit') }}" class="btn btn-success">編集</a>
+                                  <form action="{{ route('posts.destroy', $post->id) }}" method="POST">
                                       {{ csrf_field() }}
-                                      <input type="submit" value="削除" class="btn btn-danger post_del_btn">
+                                      @method('DELETE')
+                                      <input type="submit" value="削除" class="btn btn-danger post_del_btn" onclick="Check()">
                                   </form>
-                                @endif
-                              </div>
+                                </div>
+                              @endif
                             </li>
                         </ul>
                       </tr>

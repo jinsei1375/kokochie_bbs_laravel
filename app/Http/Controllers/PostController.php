@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 
 class PostController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -93,6 +94,7 @@ class PostController extends Controller
         
         //レコードを検索
         $post = Post::find($id);
+        $user_id = Auth::id();
 
         $post->user_id = Auth::id();
         $post->content = $request->content;

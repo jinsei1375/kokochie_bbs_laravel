@@ -30,4 +30,9 @@ Auth::routes();
 // Route::delete('/posts/{id}','PostController@destroy');
 
 Route::resource('/posts', 'PostController', ['except' => 'show']);
-Route::resource('/user/posts', 'UserPostController', ['except' => 'show']);
+// Route::resource('/user/posts', 'UserPostController', ['except' => 'show'])->shallow();
+Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => 'web'], function () {
+ 
+  Route::resource('posts', 'UserPostController');
+
+});

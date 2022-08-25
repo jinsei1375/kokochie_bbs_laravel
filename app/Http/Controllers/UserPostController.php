@@ -77,7 +77,7 @@ class UserPostController extends Controller
 
         $post = Post::find($id);
     
-        return view('posts.edit', compact('post'));
+        return view('user.posts.edit', compact('post'));
 
     }
 
@@ -100,7 +100,7 @@ class UserPostController extends Controller
         //保存（更新）
         $post->save();
         
-        return redirect()->to('/posts');
+        return redirect()->to('/user/posts');
     }
 
     /**
@@ -115,6 +115,6 @@ class UserPostController extends Controller
         //削除
         $post->delete();
 
-        return redirect()->to('/posts');
+        return redirect()->to('/user/posts');
     }
 }

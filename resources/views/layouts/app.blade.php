@@ -60,7 +60,7 @@
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('ログアウト') }}
                                     </a>
-                                    <a class="dropdown-item" href="{{ url('/user/posts') }}">
+                                    <a class="dropdown-item" href="{{ route('user.posts.index') }}">
                                         {{ __('管理画面') }}
                                     </a>
 
@@ -79,5 +79,11 @@
             @yield('content')
         </main>
     </div>
+    <script type="text/javascript">
+       function Check(){
+           var checked = confirm("本当に削除しますか？");
+           if (checked == true) { return true; } else { return false; }
+       }
+    </script>
 </body>
 </html>
