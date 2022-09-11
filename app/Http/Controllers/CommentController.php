@@ -3,13 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use App\Models\Post;
-use App\Services\UserPostService;
+use App\Models\Comment;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
-class UserPostController extends Controller
+class CommentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,9 +16,7 @@ class UserPostController extends Controller
      */
     public function index()
     {
-        $posts = Post::orderBy('created_at', 'desc')->where('user_id', Auth::id())->get();
-
-        return view('user.posts.index', ['posts' => $posts]);
+        //
     }
 
     /**
@@ -30,7 +26,7 @@ class UserPostController extends Controller
      */
     public function create()
     {
-        return view('user.posts.create');
+        //
     }
 
     /**
@@ -43,14 +39,15 @@ class UserPostController extends Controller
     {
         $id = Auth::id();
         //インスタンス作成
-        $post = new Post();
+        $comments = new Comment();
         
-        $post->content = $request->content;
-        $post->user_id = $id;
+        $comments->content = $request->content;
+        $comments->user_id = $id;
+        $comments->post_id = $request->post_id;
 
-        $post->save();
+        $comments->save();
 
-       return redirect()->to('/user/posts');
+       return redirect()->to('/posts');
     }
 
     /**
@@ -61,10 +58,7 @@ class UserPostController extends Controller
      */
     public function show($id)
     {
-        // $user = DB::table('users')->where('id', $usr_id)->first();
-        
-
-        return view('posts.index');
+        //
     }
 
     /**
@@ -75,11 +69,7 @@ class UserPostController extends Controller
      */
     public function edit($id)
     {
-
-        $post = Post::find($id);
-    
-        return view('user.posts.edit', compact('post'));
-
+        //
     }
 
     /**
@@ -91,17 +81,7 @@ class UserPostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
-        //レコードを検索
-        $post = Post::find($id);
-
-        $post->user_id = Auth::id();
-        $post->content = $request->content;
-        
-        //保存（更新）
-        $post->save();
-        
-        return redirect()->to('/user/posts');
+        //
     }
 
     /**
@@ -112,10 +92,6 @@ class UserPostController extends Controller
      */
     public function destroy($id)
     {
-        $post = Post::find($id);
-        //削除
-        $post->delete();
-
-        return redirect()->to('/user/posts');
+        //
     }
 }

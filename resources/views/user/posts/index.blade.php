@@ -5,10 +5,9 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
           <div class="col-10 col-md-8 offset-1 offset-md-2">
-             <a href="/user/posts/create">新規投稿</a>
+            <a href="{{ route('user.posts.create') }}" class="btn btn-primary">新規投稿</a>
               <table class="table">
                   <tbody>
-                      
                       @foreach ($posts as $post)
                       <tr class="border">
                         <ul>

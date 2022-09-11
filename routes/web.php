@@ -29,10 +29,13 @@ Auth::routes();
 // Route::post('/posts/{id}', 'PostController@update');
 // Route::delete('/posts/{id}','PostController@destroy');
 
-Route::resource('/posts', 'PostController', ['except' => 'show']);
-// Route::resource('/user/posts', 'UserPostController', ['except' => 'show'])->shallow();
-Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => 'web'], function () {
- 
-  Route::resource('posts', 'UserPostController');
+Route::resource('/posts', 'PostController', ['only' => 'index']);
 
+Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => 'auth'], function () {
+  Route::resource('posts', 'UserPostController');
 });
+
+Route::post('posts/{post}/favorites', 'FavoriteController@store')->name('favorites');
+Route::post('posts/{post}/unfavorites', 'FavoriteController@destroy')->name('unfavorites');
+
+Route::resource('/comments', 'CommentController'); 

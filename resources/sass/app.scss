@@ -1,8 +1,49 @@
 // Fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito');
+@import url("https://fonts.googleapis.com/css?family=Nunito");
 
 // Variables
-@import 'variables';
+@import "variables";
 
 // Bootstrap
-@import '~bootstrap/scss/bootstrap';
+@import "~bootstrap/scss/bootstrap";
+
+@import "~@fortawesome/fontawesome-free/scss/fontawesome";
+@import "~@fortawesome/fontawesome-free/scss/solid";
+
+
+li {
+  list-style: none;
+  &::marker{
+    display: none;
+  }
+}
+
+#app {
+  .container{
+    ul.post_list {
+      padding: 0;
+      border-bottom: 1px solid #ccc;
+      &:first-of-type{
+        border-top: 1px solid #ccc;
+        padding-top: 1rem;
+      }
+      li {
+        margin-bottom: 1rem;
+        li {
+          margin-bottom: 0;
+          border-bottom: 1px solid #ccc;
+          &:first-of-type {
+            border-top: 1px solid #ccc;
+          }
+          p {
+            margin-bottom: 0.5rem;
+          }
+        }
+      }
+    }
+    .row {
+      margin-left: 0;
+    }
+  }
+
+}
