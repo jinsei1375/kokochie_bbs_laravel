@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
+use App\Models\Icon;
 use Illuminate\Http\Request;
-use App\Models\Post;
-use App\Models\Comment;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
-class CommentController extends Controller
+class IconController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -38,16 +39,15 @@ class CommentController extends Controller
     public function store(Request $request)
     {
         $id = Auth::id();
-        //インスタンス作成
-        $comments = new Comment();
-        
-        $comments->content = $request->content;
-        $comments->user_id = $id;
-        $comments->post_id = $request->post_id;
+        $user = User::find($id);
+        $icon_name = $request->icon->getClientOriginalName();
+        $user->icon = $icon_name;
 
-        $comments->save();
+        $user->save();
 
-       return redirect()->to('/posts');
+        $request->icon->storeAs('public/img/icon', $icon_name);
+
+        return redirect()->to('/user/posts');
     }
 
     /**
@@ -69,7 +69,8 @@ class CommentController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = Auth::id();
+        return view('icon.edit');
     }
 
     /**
@@ -81,7 +82,16 @@ class CommentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $id = Auth::id();
+        $user = User::find($id);
+
+        $icon_name = $request->icon->getClientOriginalName();
+        $user->icon = $icon_name;
+
+        $user->save();
+        $request->icon->storeAs('public/img/icon', $icon_name);
+        
+        return redirect()->to('/user/posts');
     }
 
     /**
@@ -92,10 +102,6 @@ class CommentController extends Controller
      */
     public function destroy($id)
     {
-        $comment = Comment::find($id);
-        //削除
-        $comment->delete();
-
-        return redirect()->to('/posts');
+        //
     }
 }

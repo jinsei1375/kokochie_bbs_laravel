@@ -4,6 +4,21 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-12">
+        <div class="col-10 col-md-8 offset-1 offset-md-2 mb-5">
+          @if(!isset(Auth::user()->icon))
+            アイコン登録
+            <form action="{{ route('icon.store') }}" method="post" enctype="multipart/form-data">
+              {{ csrf_field() }}
+              <input type="file" name="icon">
+              <input type="submit" value="保存" class="btn btn-primary">
+            </form>
+          @else
+            <div class="icon-wrap">
+              <img src="{{ '/storage/img/icon/' . Auth::user()->icon }}" alt="">
+            </div>
+            <a href="{{ route('icon.edit', Auth::user()->id ) }}" class="btn btn-primary">アイコン変更</a>
+          @endif
+        </div>
           <div class="col-10 col-md-8 offset-1 offset-md-2">
             <a href="{{ route('user.posts.create') }}" class="btn btn-primary">新規投稿</a>
               <table class="table">

@@ -11,7 +11,16 @@
                       @foreach ($posts as $post)
                       <tr class="border">
                         <ul class="post_list">
-                            <li><div class="row"><div class="colmd-3"><span>{{ $post->created_at }}</span>　{{ $post->user->your_name }}</div></div></li>
+                            <li><div class="row">
+                              <div class="colmd-3">
+                                @if(isset($post->user->icon))
+                                  <span>
+                                    <img src="{{ '/storage/img/icon/' . $post->user->icon }}" alt="">
+                                  </span>
+                                @endif
+                                <span>{{ $post->created_at }}　{{ $post->user->your_name }}</span>
+                              </div>
+                            </li>
                             <li><div class="row"><div class="colmd-3">{{ $post->content }}</div></div></li>
                             <li>
                               @if($post->user_id == Auth::id())
@@ -31,7 +40,7 @@
                                   <form action="{{ route('comments.store') }}" method="POST">
                                   {{ csrf_field() }}
                                   @method('POST')
-                                      <textarea class="form-control" name="content" id="exampleFormControlTextarea1" rows="2"></textarea>
+                                      <textarea class="form-control" name="content" id="exampleFormControlTextarea1" rows="1"></textarea>
                                       <input type="hidden" name="post_id" value="{{ $post->id }}"  class="fas btn btn-primary">
                                       <input type="submit" value="コメントする"  class="fas btn btn-primary">
                                   </form>
@@ -42,8 +51,22 @@
                               <ul>
                               @foreach ($post->comments as $comment)
                                 <li>
-                                    <p><span>{{ $comment->created_at }}</span>　{{ $comment->user->your_name}}さんからのコメント</p>
-                                    <p>{{ $comment->content }}</p>
+                                  <div class="row">
+                                    <div class="colmd-3">
+                                      <span>
+                                        <img src="{{ '/storage/img/icon/' . $comment->user->icon }}" alt="">
+                                      </span>
+                                      <span>{{ $comment->created_at }}　{{ $comment->user->your_name}}さんからのコメント</span>
+                                    </div>
+                                  </div>
+                                  <p>{{ $comment->content }}</p>
+                                  @if($comment->user->id == Auth::id())
+                                    <form action="{{ route('comments.destroy', $comment->id) }}" method="POST">
+                                      {{ csrf_field() }}
+                                      @method('DELETE')
+                                      <input type="submit" value="削除" class="btn btn-danger comment_del_btn" onclick="Check()"> 
+                                    </form>
+                                  @endif
                                 </li>
                               @endforeach
                               </ul>
