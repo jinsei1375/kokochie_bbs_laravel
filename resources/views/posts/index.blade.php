@@ -53,9 +53,11 @@
                                 <li>
                                   <div class="row">
                                     <div class="colmd-3">
-                                      <span>
-                                        <img src="{{ '/storage/img/icon/' . $comment->user->icon }}" alt="">
-                                      </span>
+                                      @if(isset($comment->user->icon))
+                                        <span>
+                                          <img src="{{ '/storage/img/icon/' . $comment->user->icon }}" alt="">
+                                        </span>
+                                      @endif
                                       <span>{{ $comment->created_at }}　{{ $comment->user->your_name}}さんからのコメント</span>
                                     </div>
                                   </div>
@@ -73,26 +75,44 @@
                             </li>
                             <li>
                               <div class="row">
+                                  <!-- @Auth
+                                    @if($post->favoriteusers()->where('user_id', Auth::id())->exists())
+                                      <div class="">
+                                          <form action="{{ route('unfavorites', $post) }}" method="POST">
+                                          {{ csrf_field() }}
+                                              <input type="submit" value="いいね取り消す" class="fas btn btn-danger">
+                                          </form>
+                                      </div>
+                                    @else
+                                      <div class="">
+                                          <form action="{{ route('favorites', $post) }}" method="POST">
+                                          {{ csrf_field() }}
+                                              <input type="submit" value="いいね" class="fas btn btn-success">
+                                          </form>
+                                      </div>
+                                    @endif
+                                  @endAuth -->
+                                  <!-- <div class="">
+                                    <p>いいね数：{{ $post->favoriteusers()->count() }}</p>
+                                  </div> -->
                                   @Auth
-                                  @if($post->favoriteusers()->where('user_id', Auth::id())->exists())
-                                    <div class="">
-                                        <form action="{{ route('unfavorites', $post) }}" method="POST">
-                                        {{ csrf_field() }}
-                                            <input type="submit" value="いいね取り消す" class="fas btn btn-danger">
-                                        </form>
-                                    </div>
+                                    @if($like_model->like_exist(Auth::id(),$post->id))
+                                      <p class="favorite-marke">
+                                        <a class="js-like-toggle loved" href="" data-postid="{{ $post->id }}"><i class="fas fa-heart"></i></a>
+                                        <span class="likesCount">{{$post->likes_count}}</span>
+                                      </p>
+                                    @else
+                                      <p class="favorite-marke">
+                                        <a class="js-like-toggle" href="" data-postid="{{ $post->id }}"><i class="fas fa-heart"></i></a>
+                                        <span class="likesCount">{{$post->likes_count}}</span>
+                                      </p>
+                                      @endif​
                                   @else
-                                    <div class="">
-                                        <form action="{{ route('favorites', $post) }}" method="POST">
-                                        {{ csrf_field() }}
-                                            <input type="submit" value="いいね" class="fas btn btn-success">
-                                        </form>
-                                    </div>
-                                  @endif
+                                      <p class="favorite-marke">
+                                        <a class="" href="{{ route('login') }}" data-postid="{{ $post->id }}"><i class="fas fa-heart"></i></a>
+                                        <span class="likesCount">{{$post->likes_count}}</span>
+                                      </p>
                                   @endAuth
-                                  <div class="">
-                                      <p>いいね数：{{ $post->favoriteusers()->count() }}</p>
-                                  </div>
                               </div>
                             </li>
                         </ul>

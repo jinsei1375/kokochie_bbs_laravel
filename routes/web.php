@@ -32,3 +32,9 @@ Route::resource('/comments', 'CommentController');
 
 // アイコン
 Route::resource('/icon', 'IconController', ['only' => ['store', 'update', 'edit']]);
+
+//ログイン中のユーザーのみアクセス可能
+Route::group(['middleware' => ['auth']], function () {
+    //「ajaxlike.jsファイルのurl:'ルーティング'」に書くものと合わせる。
+    Route::post('ajaxlike', 'PostController@ajaxlike')->name('posts.ajaxlike');
+});
