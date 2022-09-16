@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="{{ asset('img/img-test.jpg') }}" />
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -50,7 +51,14 @@
                                 </li>
                             @endif
                         @else
-                            <li class="nav-item dropdown">
+                            <li class="nav-item dropdown row">
+                                @if(isset(Auth::user()->icon))
+                                    <div class="nav-icon">
+                                        <a href="{{ route('icon.edit', Auth::user()->id ) }}">
+                                            <img src="{{ '/storage/img/icon/' . Auth::user()->icon }}" alt="">
+                                        </a>
+                                    </div>
+                                @endif
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->your_name }} <span class="caret"></span>
                                 </a>

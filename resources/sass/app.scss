@@ -17,6 +17,9 @@ li {
     display: none;
   }
 }
+.row {
+  display: flex;
+}
 
 #app {
   .container{
@@ -66,4 +69,9 @@ img {
 
 .loved i {
   color: red !important;
+}
+.nav-icon img{
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
 }

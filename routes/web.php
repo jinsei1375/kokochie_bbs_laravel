@@ -21,20 +21,22 @@ Auth::routes();
 
 Route::resource('/posts', 'PostController', ['only' => 'index']);
 
-Route::group(['prefix' => 'user', 'as' => 'user.', 'middleware' => 'auth'], function () {
-  Route::resource('posts', 'UserPostController');
-});
 
 Route::post('posts/{post}/favorites', 'FavoriteController@store')->name('favorites');
 Route::post('posts/{post}/unfavorites', 'FavoriteController@destroy')->name('unfavorites');
 
 Route::resource('/comments', 'CommentController'); 
 
-// アイコン
-Route::resource('/icon', 'IconController', ['only' => ['store', 'update', 'edit']]);
 
 //ログイン中のユーザーのみアクセス可能
 Route::group(['middleware' => ['auth']], function () {
-    //「ajaxlike.jsファイルのurl:'ルーティング'」に書くものと合わせる。
+
+  Route::group(['prefix' => 'user', 'as' => 'user.'], function () {
+    Route::resource('posts', 'UserPostController');
+  });
+  
+    // アイコン
+    Route::resource('/icon', 'IconController', ['only' => ['store', 'update', 'edit']]);
+
     Route::post('ajaxlike', 'PostController@ajaxlike')->name('posts.ajaxlike');
 });

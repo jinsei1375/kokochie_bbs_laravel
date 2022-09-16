@@ -19408,6 +19408,10 @@ li::marker {
   display: none;
 }
 
+.row {
+  display: flex;
+}
+
 #app .container ul.post_list {
   padding: 0;
   border-bottom: 1px solid #ccc;
@@ -19460,5 +19464,11 @@ img {
 
 .loved i {
   color: red !important;
+}
+
+.nav-icon img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
 }
 
